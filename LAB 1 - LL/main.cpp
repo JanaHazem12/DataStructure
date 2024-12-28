@@ -91,7 +91,7 @@ class LinkedList{
                 newHead->prev->next = newHead->next;
                 newHead->next->prev = newHead->prev;
                 counter--;
-                cout<<"middle"<<endl;
+                //cout<<"middle"<<endl;
             // newHead->prev  <--
             }
             //delete newHead;
@@ -129,8 +129,8 @@ class LinkedList{
         AfterHead = AfterNode->prev;*/
 
         AfterNode->next = AfterHead->next;
-        AfterNode->next->prev = AfterNode;
-        AfterNode->prev = AfterHead->next;
+        AfterHead->next->prev = AfterNode;
+        AfterNode->prev = AfterHead;
         AfterHead->next = AfterNode;
 
         //AfterNode->next = AfterHead->next->next; // maybe
@@ -157,7 +157,7 @@ class LinkedList{
         }
         Node * BeforeNode = new Node(beforeData);
         // case: insert before 1st element
-        if(current == head){
+        if(head->data == data){
             //cout<<"HERE\n";
             //BeforeNode->prev = head->prev;
             //head->prev = BeforeNode;
@@ -212,20 +212,24 @@ int main()
     l.addNode(80);
     l.addNode(90);
     l.addNode(100);
+
     //l.display();
     //cout<<endl;
     //cout<<"count before removing: "<<l.getCount()<<endl;
-    //l.remove(5);
+    //l.remove(90);
     //l.remove(20);
     //l.remove(6);
     //cout<<endl;
     //l.display();
     //cout<<endl;
     //cout<<"count after removing: "<<l.getCount()<<endl;
-    l.insertAfter(100,7);
-    l.display();
-    //l.insertBefore(100,7);
+
+    //l.insertAfter(90,102);
     //l.display();
+
+    //l.insertBefore(70,7);
+    l.display();
+
     //cout<<l.getDatabyIndex(3);
 
 

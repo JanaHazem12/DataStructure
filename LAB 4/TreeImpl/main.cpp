@@ -85,71 +85,53 @@ class Tree{
     }
 
     void RemoveNode(int data){
-        Node * removeNode = getNodeByData(data);
-        if(removeNode == NULL){
-            throw "Node is unavailable";
-        }
-        if(removeNode == root){
-            if(root->left == NULL && root->right == NULL){
-                root = NULL;
+        Node * currentNode = getNodeByData(data);
+        Node * ParentCurrent = root;
+        while(currentNode!=NULL){
+            if(currentNode == NULL){
+                throw "Empty Tree!!";
             }
-            else if(root->left == NULL){
-                root = root->right;
-            }
-            else if(root->right == NULL){
-                root = root->left;
-            }
-            else{
-                Node * newRoot = root->left;
-                Node * getMaxRR = getMaxRight(newRoot);
-                getMaxRR->right = root->right;
-                root = newRoot;
-            }
-        }
-        else{ // if it's NOT a root
-            Node * parentt = getParent(removeNode);
-            if(removeNode->left == NULL && removeNode->right == NULL){
-                if(parentt->right == removeNode){
-                    parentt->right = NULL;
+            if(currentNode == root){
+                if(currentNode->left == NULL && currentNode->right == NULL){
+                    currentNode=NULL;
+                    return;
                 }
-                else{
-                    parentt->left = NULL;
+                else if(currentNode->left == NULL){ // if root's left = NULL --> root's right will be root
+                    root = currentNode->right;
+                }
+                else if(currentNode->right == NULL){ // if root's right = NULL --> root's left will be root
+                    root = currentNode->left;
+                }
+                else{ // root has right & left
+                    Node *leftOfRoot = root->left;
+                    Node * maxRightOfLeft = getMaxRight(leftOfRoot);
+                    maxRightOfLeft->right = root->right; // right of maxLeft = root->right
                 }
             }
-            else if(removeNode->left == NULL){
-                 if(parentt->right == removeNode){
-                    parentt->right = removeNode->right;
+            else{  // node is NOT root
+                //ParentCurrent = currentNode;
+                    Node * ParentOfCurr = getParent(currentNode);
+                    if(currentNode->left == NULL && currentNode->right == NULL){
+                        //currentNode=NULL;
+                        if(ParentOfCurr->right == currentNode){
+                            ParentOfCurr->right == NULL; // if currentNode = NULL --> parent is pointing at NULL (dangling ptr)
+                        }
+                        else{ // if ParentOfCurr->left == currentNode
+                            ParentOfCurr->left == NULL;
+                        }
+                    }
                 }
-                else{
-                    parentt->left = removeNode->right;
-                }
-            }
-            else if(removeNode->right == NULL){
-                if(parentt->right == removeNode){
-                    parentt->right = removeNode->left;
-                }
-                else{
-                    parentt->left = removeNode->left;
-                }
-            }
-            else{
-                Node * ParentNew = removeNode->left;
-                Node * getMaxRRR = getMaxRight(ParentNew);
-                getMaxRR->right = removeNode->right;
-                root = ParentNew;
+                    else if(currentNode->left == NULL){
+                        currentNode = currentNode->right;
+                    }
+                    else if(currentNode->right == NULL){
+                         currentNode = currentNode->left;
+                    }
+                    else{ // left & right != NULL ----> WORST CASE
 
-                if(parentt->right==node){
-                    parentt->right = ParentNew;
+                    }
                 }
-                else{
-                    parentt->left = ParentNew;
-                }
-            }
-
-
-        }
-        delete removeNode;
-
+        delete currentNode;
     }
 
     public:
