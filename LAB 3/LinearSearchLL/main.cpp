@@ -220,22 +220,16 @@ class LinkedList{
         return 0;
     }
 
-    LinkedList linearSearch(int *arr, int size, int target){
-        int NumofIterations = 0;
-        //int f = 0;
-        //int index=-1;
-        for(int i=0; i<size; i++){
-            if(arr[i]==target){
-                //f = 1;
-                //index = i;
-                this->addNode(target);
-                //return i; // returning the index
+    Node * linearSearch(int data){
+        Node * current = head;
+        while(current!=NULL){
+            if(current->data=data){
+                return current;
             }
-            NumofIterations++;
+            current = current->next;
         }
-        cout<<"Number of iterations: "<<NumofIterations<<endl;
-        //return index;
-        }
+        return NULL;
+    }
 };
 
 
@@ -243,11 +237,11 @@ class LinkedList{
 int main(){
     LinkedList l;
 
-    /*l.addNode(70);
+    l.addNode(70);
     l.addNode(80);
     l.addNode(90);
     l.addNode(100);
-    l.addNode(110);*/
+    l.addNode(110);
 
     //l.display();
     //cout<<endl;
@@ -267,11 +261,10 @@ int main(){
     //l.display();
     //cout<<l.getDatabyIndex(3);
 
-    int arr[]={10,50,30,50,50,60};
+   // int arr[]={10,50,30,50,50,60};
     //cout<<"Index: ";
-    int sizeOfArr = sizeof(arr)/sizeof(arr[0]);
-    l.linearSearch(arr, sizeOfArr, 50);
-    cout<<"no. of occurences => ";
+    //int sizeOfArr = sizeof(arr)/sizeof(arr[0]);
+    l.linearSearch(100);
     l.display();
     cout<<endl;
 
